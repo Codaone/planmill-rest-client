@@ -114,20 +114,62 @@ class Api {
 		);
 	}
 
-	public function getTasks($projectId, $search = '') {
+	/**
+	 * @param int      $projectId
+	 * @param int|null $taskId
+	 * @return Task[]
+	 */
+	public function getTasks($projectId, $taskId = NULL) {
 		return $this->api(
 			self::REQUEST_GET,
 			"method=task.get" .
 			"&TaskHierarchy.ProjectId=$projectId" .
-			"&Task.Name=$search"
-		)->getTasks();
+			"&Task.Id=$taskId"
+		)->getTasks((bool)$taskId);
 	}
 
-	public function getProjects() {
+	/**
+	 * @param int|null $projectId
+	 * @return Project[]
+	 */
+	public function getProjects($projectId = NULL) {
 		return $this->api(
 			self::REQUEST_GET,
-			"method=project.get"
-		)->getProjects();
+			"method=project.get" .
+			($projectId ? "&PMVProject.Id=$projectId" : "")
+		)->getProjects((bool)$projectId);
+	}
+
+	public function getTimeReports($timereporId = null) {
+		return $this->api(
+			self::REQUEST_GET,
+			"&method=timereport.get" .
+			($timereporId ? "&TimeReport.Id=$timereporId" : '')
+		)->getTimeReports((bool)$timereporId);
+	}
+
+	public function reportHours($taskId, $amount, $comment) {
+		return $this->api(
+			self::REQUEST_GET,
+			"&method=timereport.insert" .
+			"&TimeReport.Amount=$amount" .
+			"&TimeReport.NormalComment=" . urlencode($comment) .
+			"&TimeReport.PersonId=" . $this->authentication->getId() .
+			"&TimeReport.TaskId=$taskId" .
+			"&return=true"
+		);
+	}
+
+	public function editReportHours($reportId, $amount, $comment) {
+		return $this->api(
+			self::REQUEST_GET,
+			"&method=timereport.update" .
+			"&TimeReport.Id=$reportId" .
+			"&TimeReport.Amount=$amount" .
+			"&TimeReport.NormalComment=" . urlencode($comment) .
+			"&TimeReport.PersonId=" . $this->authentication->getId() .
+			"&return=true"
+		);
 	}
 
 	/**

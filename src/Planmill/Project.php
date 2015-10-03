@@ -74,4 +74,5 @@ class Project {
 	public function getStatus() {
 		return $this->status;
 	}
+
 }

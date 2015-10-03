@@ -26,13 +26,9 @@ namespace codaone\Planmill\Api;
 
 use codaone\Planmill\Project;
 use codaone\Planmill\Task;
+use codaone\Planmill\TimeReport;
 
 class Result {
-	protected $expand;
-	protected $startAt;
-	protected $maxResults;
-	protected $total;
-
 	protected $result;
 
 	public function __construct($result) {
@@ -41,27 +37,34 @@ class Result {
 		$this->result = json_decode($this->result, true);
 	}
 
-	public function getTotal() {
-		return $this->total;
-	}
-
-
-
-	public function getProjects() {
-		if (isset($this->result['projects']['project'])) {
+	public function getProjects($single = false) {
+		if (isset($this->result['projects'])) {
 			$result = array();
-			foreach ($this->result['projects']['project'] as $data) {
+			$rows = $single ? $this->result['projects'] : $this->result['projects']['project'];
+			foreach ($rows as $data) {
 				$result[] = new Project($data);
 			}
 			return $result;
 		}
 	}
 
-	public function getTasks() {
-		if (isset($this->result['tasks']['task'])) {
+	public function getTasks($single = false) {
+		if (isset($this->result['tasks'])) {
 			$result = array();
-			foreach ($this->result['tasks']['task'] as $data) {
+			$rows = $single ? $this->result['tasks'] : $this->result['tasks']['task'];
+			foreach ($rows as $data) {
 				$result[] = new Task($data);
+			}
+			return $result;
+		}
+	}
+
+	public function getTimeReports($single = false) {
+		if (isset($this->result['timereports'])) {
+			$result = array();
+			$rows = $single ? $this->result['timereports'] : $this->result['timereports']['timereport'];
+			foreach ($rows as $data) {
+				$result[] = new TimeReport($data);
 			}
 			return $result;
 		}

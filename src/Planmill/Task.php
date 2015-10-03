@@ -21,7 +21,7 @@ class Task {
 
 	public function __construct(array $project) {
 		$mapper = array(
-			'id'             => 'Id',
+			'id'             => 'Task.Id',
 			'name'           => 'Task.Name',
 			'created'        => 'Task.Created',
 			'start'          => 'Task.Start',
@@ -38,7 +38,7 @@ class Task {
 	}
 
 	/**
-	 * @return mixed
+	 * @return int
 	 */
 	public function getId() {
 		return $this->id;
@@ -73,21 +73,21 @@ class Task {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getBillableStatus() {
 		return $this->billableStatus;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getStatus() {
 		return $this->status;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getType() {
 		return $this->type;
