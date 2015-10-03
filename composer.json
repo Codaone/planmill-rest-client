@@ -1,0 +1,23 @@
+{
+    "name": "codaone/planmill-rest-client",
+    "description": "Planmill REST API.",
+    "keywords": ["planmill","rest","api"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Juhani Haapala",
+            "homepage": "https://www.codaone.fi",
+            "email": "juhani@codaone.fi"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-4" : {
+            "codaone\\" : "src"
+        }
+    },
+}
