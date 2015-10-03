@@ -9,7 +9,7 @@ $api = new codaone\Planmill\Api(
 );
 
 $projects = $api->getProjects();
-$tasks = $api->getTasks($projects[0]->getId();
+$tasks = $api->getTasks($projects[0]->getId());
 ````
 
 # License
