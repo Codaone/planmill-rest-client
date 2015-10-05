@@ -152,7 +152,7 @@ class Api {
 		return $this->api(
 			self::REQUEST_GET,
 			"&method=timereport.insert" .
-			"&TimeReport.Start2=" . date() .
+			"&TimeReport.Start2=" . date("d.m.Y") .
 			"&TimeReport.Amount=$amount" .
 			"&TimeReport.NormalComment=" . urlencode($comment) .
 			"&TimeReport.PersonId=" . $this->authentication->getId() .
